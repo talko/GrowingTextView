@@ -156,6 +156,23 @@
     return contentInset;
 }
 
+- (void)setEnablePastingOfImages:(BOOL)enablePastingOfImages {
+    _enablePastingOfImages = enablePastingOfImages;
+
+    if (enablePastingOfImages) {
+        __weak typeof(self) weakSelf = self;
+        [internalTextView setPasteImageBlock:^(UIImage *image) {
+            if ([weakSelf.delegate respondsToSelector:@selector(growingTextView:didPasteImage:)]) {
+                [weakSelf.delegate growingTextView:weakSelf
+                                     didPasteImage:image];
+            }
+        }];
+    }
+    else {
+        [internalTextView setPasteImageBlock:nil];
+    }
+}
+
 -(void)setMaxNumberOfLines:(int)n
 {
     if(n == 0 && maxHeight > 0) return; // the user specified a maxHeight themselves.

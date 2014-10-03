@@ -123,4 +123,32 @@
 	[self setNeedsDisplay];
 }
 
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    BOOL retValue = NO;
+    if (action == @selector(paste:) ) {
+        if (self.pasteImageBlock
+            && [[UIPasteboard generalPasteboard] containsPasteboardTypes:UIPasteboardTypeListImage]) {
+            retValue = YES;
+        }
+        else {
+            retValue = [super canPerformAction:action withSender:sender];
+        }
+    }
+    else {
+        retValue = [super canPerformAction:action withSender:sender];
+    }
+    return retValue;
+}
+
+- (void)paste:(id)sender {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    if (pasteboard.image
+        && self.pasteImageBlock) {
+        self.pasteImageBlock(pasteboard.image);
+    }
+    else {
+        [super paste:sender];
+    }
+}
+
 @end

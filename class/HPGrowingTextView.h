@@ -53,6 +53,8 @@
 
 - (void)growingTextViewDidChangeSelection:(HPGrowingTextView *)growingTextView;
 - (BOOL)growingTextViewShouldReturn:(HPGrowingTextView *)growingTextView;
+
+- (void)growingTextView:(HPGrowingTextView *)growingTextView didPasteImage:(UIImage *)image;
 @end
 
 @interface HPGrowingTextView : UIView <UITextViewDelegate> {
@@ -106,6 +108,7 @@
 @property (assign) UIEdgeInsets contentInset;
 @property (nonatomic) BOOL isScrollable;
 @property(nonatomic) BOOL enablesReturnKeyAutomatically;
+@property (nonatomic) BOOL enablePastingOfImages;
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 - (id)initWithFrame:(CGRect)frame textContainer:(NSTextContainer *)textContainer;

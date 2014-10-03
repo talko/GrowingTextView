@@ -34,4 +34,5 @@
 @property (nonatomic, strong) UIColor *placeholderColor;
 @property (nonatomic) BOOL displayPlaceHolder;
 
+@property (nonatomic, strong) void(^pasteImageBlock)(UIImage *image); // Setting this block enables posting of images via the pasteboard
 @end
